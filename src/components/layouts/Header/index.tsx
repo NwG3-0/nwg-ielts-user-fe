@@ -1,12 +1,8 @@
 import { isLogin } from '@utils/api'
 import { MENU_HEADER } from '@utils/common'
 import Link from 'next/link'
-import { useMemo } from 'react'
 
 export const Header = () => {
-  const userInfo = useMemo(() => {
-    return
-  }, [])
   return (
     <div className="bg-[#f0d0b4]">
       <div className="flex justify-between items-center container lg:w-[1240px] mx-auto py-[20px]">
