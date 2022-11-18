@@ -41,6 +41,7 @@ const RegisterPage: NextPage = () => {
             <label htmlFor="email" className="block text-[18px] text-white">
               Email:
             </label>
+
             <input
               ref={emailValue}
               id="email"
