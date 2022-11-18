@@ -16,7 +16,7 @@ const LoginPage: NextPage = () => {
     try {
       e.preventDefault()
       if (emailValue.current.value !== '' && passwordValue.current.value !== '') {
-        const { success, data, message } = await login({
+        const { success, data } = await login({
           email: emailValue.current.value,
           password: passwordValue.current.value,
         })

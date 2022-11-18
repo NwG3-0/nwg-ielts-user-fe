@@ -1,11 +1,8 @@
-import { AUTH_TOKEN, USER_INFO } from '@src/models/api'
 import { verify } from '@utils/api'
 import { NOTIFICATION_TYPE, notify } from '@utils/notify'
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
-import { type } from 'os'
-import { stringify } from 'querystring'
-import React, { useMemo, useRef, useState } from 'react'
+import React, { useRef } from 'react'
 
 const VerifyPage: NextPage = () => {
   const router = useRouter()
@@ -15,7 +12,7 @@ const VerifyPage: NextPage = () => {
     try {
       e.preventDefault()
       if (otpValue.current.value !== '') {
-        const { success, data, message } = await verify({
+        const { success } = await verify({
           email: JSON.parse(localStorage.getItem('verify_email') ?? '').email,
           otpCode: otpValue.current.value,
         })

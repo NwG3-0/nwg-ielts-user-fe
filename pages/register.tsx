@@ -26,7 +26,7 @@ const RegisterPage: NextPage = () => {
         passwordValue.current.value !== '' &&
         confirmPasswordValue.current.value !== ''
       ) {
-        const { success, data, message } = await register({
+        const { success, data } = await register({
           email: emailValue.current.value,
           password: passwordValue.current.value,
         })
