@@ -1,3 +1,5 @@
+import { verify } from '@utils/api'
+import { NOTIFICATION_TYPE, notify } from '@utils/notify'
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import React, { useRef } from 'react'
@@ -6,12 +8,20 @@ const VerifyPage: NextPage = () => {
   const router = useRouter()
   const otpValue = useRef() as React.MutableRefObject<HTMLInputElement>
 
-  const onVerify = (e: { preventDefault: () => void }) => {
-    e.preventDefault()
-    if (otpValue.current.value !== '') {
-      console.log(otpValue.current.value)
-      router.push('/login')
-    }
+  const onVerify = async (e: { preventDefault: () => void }) => {
+    try {
+      e.preventDefault()
+      if (otpValue.current.value !== '') {
+        const { success } = await verify({
+          email: JSON.parse(localStorage.getItem('verify_email') ?? '').email,
+          otpCode: otpValue.current.value,
+        })
+        if (success) {
+          notify(NOTIFICATION_TYPE.SUCCESS, 'Verify success')
+          router.push('/login')
+        }
+      }
+    } catch (error) {}
   }
 
   return (
