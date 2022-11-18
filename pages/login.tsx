@@ -1,17 +1,35 @@
 import InputPassword from '@components/common/InputPassword'
+import { AUTH_TOKEN, USER_INFO } from '@src/models/api'
+import { login } from '@utils/api'
+import { NOTIFICATION_TYPE, notify } from '@utils/notify'
 import type { NextPage } from 'next'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import React, { useRef } from 'react'
 
 const LoginPage: NextPage = () => {
   const emailValue = useRef() as React.MutableRefObject<HTMLInputElement>
   const passwordValue = useRef() as React.MutableRefObject<HTMLInputElement>
+  const router = useRouter()
 
-  const onLogin = (e: { preventDefault: () => void }) => {
-    e.preventDefault()
-    if (emailValue.current.value !== '' && passwordValue.current.value !== '') {
-      console.log(emailValue.current.value, passwordValue.current.value)
-    }
+  const onLogin = async (e: { preventDefault: () => void }) => {
+    try {
+      e.preventDefault()
+      if (emailValue.current.value !== '' && passwordValue.current.value !== '') {
+        const { success, data, message } = await login({
+          email: emailValue.current.value,
+          password: passwordValue.current.value,
+        })
+
+        if (success) {
+          localStorage.setItem(USER_INFO, JSON.stringify(data))
+          localStorage.setItem(AUTH_TOKEN, data.token)
+          notify(NOTIFICATION_TYPE.SUCCESS, 'Login success')
+
+          router.push('/')
+        }
+      }
+    } catch (error) {}
   }
 
   return (
