@@ -1,11 +1,16 @@
 import InputPassword from '@components/common/InputPassword'
+import { register } from '@utils/api'
 import type { NextPage } from 'next'
 import React, { useRef, useState } from 'react'
+import { useRouter } from 'next/router'
+import { NOTIFICATION_TYPE, notify } from '@utils/notify'
 
 const RegisterPage: NextPage = () => {
   const emailValue = useRef() as React.MutableRefObject<HTMLInputElement>
   const passwordValue = useRef() as React.MutableRefObject<HTMLInputElement>
   const confirmPasswordValue = useRef() as React.MutableRefObject<HTMLInputElement>
+
+  const router = useRouter()
 
   const [errorMessage, setErrorMessage] = useState({
     email: '',
@@ -13,11 +18,26 @@ const RegisterPage: NextPage = () => {
     confirmPassword: '',
   })
 
-  const onRegister = (e: { preventDefault: () => void }) => {
-    e.preventDefault()
-    if (emailValue.current.value !== '') {
-      console.log(emailValue.current.value)
-    }
+  const onRegister = async (e: { preventDefault: () => void }) => {
+    try {
+      e.preventDefault()
+      if (
+        emailValue.current.value !== '' &&
+        passwordValue.current.value !== '' &&
+        confirmPasswordValue.current.value !== ''
+      ) {
+        const { success, data, message } = await register({
+          email: emailValue.current.value,
+          password: passwordValue.current.value,
+        })
+
+        if (success) {
+          notify(NOTIFICATION_TYPE.SUCCESS, 'Register success')
+          localStorage.setItem('verify_email', JSON.stringify(data))
+          router.push('/verify')
+        }
+      }
+    } catch (error) {}
   }
 
   const onChangeEmail = (e: { target: { value: string } }) => {
