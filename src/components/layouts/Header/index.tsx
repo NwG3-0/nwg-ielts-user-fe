@@ -3,7 +3,7 @@ import { DictionaryModal } from '@components/common/DictionaryModal'
 import { SaveCardModal } from '@components/widgets/SaveCardModal'
 import { USER_INFO } from '@src/models/api'
 import { useQuery } from '@tanstack/react-query'
-import { getDicionary, isLogin } from '@utils/api'
+import { getDictionary, isLogin } from '@utils/api'
 import { DROPDOWN_MENU, MENU_HEADER } from '@utils/common'
 import { safeParseJSON } from '@utils/json'
 import { QUERY_KEYS } from '@utils/keys'
@@ -28,7 +28,7 @@ export const Header = () => {
     [QUERY_KEYS.DICTIONARY_SEARCH, searchWordValue],
     async () => {
       try {
-        const response = await getDicionary(searchWordValue)
+        const response = await getDictionary(searchWordValue)
 
         return response
       } catch (error) {
