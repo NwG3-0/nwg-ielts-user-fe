@@ -15,14 +15,25 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@tanstack/react-query": "^4.16.1",
+    "@typescript-eslint/parser": "^5.0.0",
+    "aos": "^2.3.4",
     "next": "13.0.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hot-keys": "^2.7.2",
+    "react-infinite-scroll-component": "^6.1.0",
+    "react-lazyload": "^3.2.0",
+    "react-modal": "^3.16.1",
+    "react-quill": "^2.0.0",
+    "react-slick": "^0.29.0",
     "react-toastify": "^9.1.1"
   },
   "devDependencies": {
     "@types/node": "18.11.7",
     "@types/react": "18.0.24",
+    "@types/react-lazyload": "^3.2.0",
+    "@types/react-modal": "^3.16.1",
     "@typescript-eslint/eslint-plugin": "^5.43.0",
     "autoprefixer": "^10.4.13",
     "eslint": "8.26.0",

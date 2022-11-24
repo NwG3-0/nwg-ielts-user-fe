@@ -1,21 +1,19 @@
-import { Footer } from '@components/layouts/Footer'
 import type { NextPage } from 'next'
 import dynamic from 'next/dynamic'
 
 const Header = dynamic(() => import('@components/layouts/Header/index').then((mod) => mod.Header), {
   ssr: false,
 })
-const HomePage = dynamic(() => import('@components/screens/Home/index').then((mod) => mod.HomePage), {
+const PostCreate = dynamic(() => import('@components/screens/Post/PostCreate').then((mod) => mod.PostCreate), {
   ssr: false,
 })
-const Home: NextPage = () => {
+const PostCreatePage: NextPage = () => {
   return (
     <div>
       <Header />
-      <HomePage />
-      <Footer />
+      <PostCreate />
     </div>
   )
 }
 
-export default Home
+export default PostCreatePage
