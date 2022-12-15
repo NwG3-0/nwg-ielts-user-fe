@@ -3,8 +3,9 @@ export const LoadingbtnAnimate = () => {
   return (
     <div className="loading-btn">
       <div className="loader">
-        {arr.map((item: number) => (
+        {arr.map((item: number, index: number) => (
           <span
+            key={`loading ${index}`}
             className={`span-loader${item}`}
             style={{
               transform: `rotate(calc(18deg*${item}))`,
