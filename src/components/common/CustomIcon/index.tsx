@@ -154,7 +154,7 @@ export const GoogleIcon = ({ width, height, color }: IconType) => {
   )
 }
 
-export const BinIcon = ({ width, height, color }: IconType) => {
+export const BinIcon = ({ width, height }: IconType) => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width={width} height={height}>
       <radialGradient
@@ -316,7 +316,7 @@ export const BinIcon = ({ width, height, color }: IconType) => {
   )
 }
 
-export const MessageIcon = ({ width, height, color }: IconType) => {
+export const MessageIcon = ({ width, height }: IconType) => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width={width} height={height}>
       <linearGradient id="IKe0efjh8lUd5BNYkPrwHa" x1="31.5" x2="31.5" y1="9" y2="53" gradientUnits="userSpaceOnUse">
@@ -371,7 +371,7 @@ export const EmojiIcon = ({ width, height, color }: IconType) => {
   )
 }
 
-export const SettingIcon = ({ width, height, color }: IconType) => {
+export const SettingIcon = ({ width, height }: IconType) => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width={width} height={height}>
       <linearGradient
@@ -422,7 +422,7 @@ export const SettingIcon = ({ width, height, color }: IconType) => {
   )
 }
 
-export const DropdownArrow = ({ width, height, color }: IconType) => {
+export const DropdownArrow = ({ width, height }: IconType) => {
   return (
     <svg height={height} viewBox="0 0 24 24" width={width} xmlns="http://www.w3.org/2000/svg">
       <g id="_16" data-name="16">

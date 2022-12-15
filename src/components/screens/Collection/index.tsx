@@ -7,20 +7,20 @@ import { createDeck, deleteDeck, getCard, getDeckList } from '@utils/api'
 import { safeParseJSON } from '@utils/json'
 import { QUERY_KEYS } from '@utils/keys'
 import { NOTIFICATION_TYPE, notify } from '@utils/notify'
-import React, { useEffect, useMemo, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import Slider from 'react-slick'
 
 export const Collection = () => {
   const queryClient = useQueryClient()
-  const [limit, setLimit] = useState<number>(5)
-  const [page, setPage] = useState<number>(1)
-  const [keyword, setKeyword] = useState<string>('')
-  const refTopicName = useRef() as React.MutableRefObject<HTMLInputElement>
+  const [limit] = useState<number>(5)
+  const [page] = useState<number>(1)
+  const [keyword] = useState<string>('')
+  // const refTopicName = useRef() as React.MutableRefObject<HTMLInputElement>
   const [isOpenAddTopicModal, setIsOpenAddTopicModal] = useState<boolean>(false)
   const [level, setLevel] = useState<string[]>([])
   const [tpName, setTopicName] = useState<string>('')
   const [showDeteil, setShowDetail] = useState<boolean>(false)
-  const [mean, setMean] = useState<any>([])
+  const [_mean, setMean] = useState<any>([])
 
   const userInfo: any = useMemo(() => {
     if (typeof window !== 'undefined') {
@@ -33,11 +33,7 @@ export const Collection = () => {
     }
   }, [])
 
-  const {
-    data: deck,
-    isLoading: isLoadingDeck,
-    error: isErrorDeck,
-  } = useQuery(
+  const { data: deck } = useQuery(
     [QUERY_KEYS.TOPIC_LIST],
     async () => {
       try {
@@ -54,11 +50,7 @@ export const Collection = () => {
     },
   )
 
-  const {
-    data: card,
-    isLoading: isLoadingCard,
-    error: isErrorCard,
-  } = useQuery(
+  const { data: card } = useQuery(
     [QUERY_KEYS.CARD_LIST, tpName, limit, page, keyword, level, deck],
     async () => {
       try {
@@ -88,22 +80,22 @@ export const Collection = () => {
     }
   }, [card])
 
-  const onCreate = async (event: { preventDefault: () => void }) => {
-    try {
-      event.preventDefault()
-      if (accessToken) {
-        const { success } = await createDeck({
-          topicName: refTopicName.current.value,
-          userId: userInfo?.id,
-          accessToken,
-        })
+  // const onCreate = async (event: { preventDefault: () => void }) => {
+  //   try {
+  //     event.preventDefault()
+  //     if (accessToken) {
+  //       const { success } = await createDeck({
+  //         topicName: refTopicName.current.value,
+  //         userId: userInfo?.id,
+  //         accessToken,
+  //       })
 
-        if (success) {
-          notify(NOTIFICATION_TYPE.SUCCESS, 'Delete success')
-        }
-      }
-    } catch (error) {}
-  }
+  //       if (success) {
+  //         notify(NOTIFICATION_TYPE.SUCCESS, 'Delete success')
+  //       }
+  //     }
+  //   } catch (error) {}
+  // }
 
   const onDelete = async (id: any) => {
     try {

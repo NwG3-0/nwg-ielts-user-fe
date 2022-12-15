@@ -25,11 +25,7 @@ export const SaveCardModal = ({ word }: Props) => {
     }
   }, [])
 
-  const {
-    data: deck,
-    isLoading: isLoadingDeck,
-    error: isErrorDeck,
-  } = useQuery(
+  const { data: deck } = useQuery(
     [QUERY_KEYS.TOPIC_LIST],
     async () => {
       try {
