@@ -4,7 +4,13 @@ module.exports = {
   mode: 'jit',
   content: ['./pages/**/*.{js,ts,jsx,tsx}', './src/components/**/*.{js,ts,jsx,tsx}'],
   theme: {
-    extend: {},
+    extend: {
+      animation: {
+        spin: 'spin 1s linear 0.01s',
+        ping: 'ping 1s cubic-bezier(0, 0, 0.2, 1) 0s',
+      },
+    },
+
     fontFamily: {
       library: ['Library-Regular', ...defaultTheme.fontFamily.serif],
     },

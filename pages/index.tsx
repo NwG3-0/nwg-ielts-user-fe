@@ -1,3 +1,4 @@
+import { Footer } from '@components/layouts/Footer'
 import type { NextPage } from 'next'
 import dynamic from 'next/dynamic'
 
@@ -13,6 +14,7 @@ const Home: NextPage = () => {
     <div>
       <Header />
       <HomePage />
+      <Footer />
     </div>
   )
 }
