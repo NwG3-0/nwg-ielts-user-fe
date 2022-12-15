@@ -84,6 +84,27 @@ export const verify = async ({ email, otpCode }: { email: string; otpCode: strin
   }
 }
 
+export const logout = async (  accessToken: string) => {
+  
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/auth/logout`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ accessToken }),
+    })
+
+    const rawResponse = await response.json()
+
+    if (rawResponse) {
+      return rawResponse
+    }
+  } catch (error) {
+    return { success: false, data: null, message: 'Something went wrong' }
+  }
+}
+
 export const createPost = async (input: {
   title: string
   imageTitle: string
@@ -261,6 +282,235 @@ export const getCard = async (input: {
         },
       },
     )
+
+    const rawResponse = await response.json()
+
+    if (rawResponse) {
+      return rawResponse
+    }
+  } catch (error) {
+    return { success: false, data: null, message: 'Something went wrong' }
+  }
+}
+
+export const checkCard = async (input: {word:string,userId:string} ) => {
+  try {
+    const word = input.word
+    const userId = input.userId
+
+    const response = await fetch(`${API_BASE_URL}/api/card/check`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json', 
+        },
+        body: JSON.stringify( {word,userId}),
+      },
+    )
+
+    const rawResponse = await response.json()
+
+    if (rawResponse) {
+      return rawResponse
+    }
+  } catch (error) {
+    return { success: false, data: null, message: 'Something went ' }
+  }
+}
+
+export const createCard = async (input: { topicName: string; word: string; phonetic: string;audio: string; meanings: string;level: string; userId: string; accessToken: string, }) => {
+  try {
+    const { topicName, word, phonetic, audio, meanings, userId, level, accessToken } = input
+
+    if (!topicName || topicName === '') {
+      return { success: false, data: null, message: 'Please enter your title' }
+    }
+
+    const response = await fetch(`${API_BASE_URL}/api/card/create`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: JSON.stringify({ topicName, word, phonetic, audio, meanings, userId, level }),
+    })
+
+    const rawResponse = await response.json()
+
+    if (rawResponse) {
+      return rawResponse
+    }
+  } catch (error) {
+    return { success: false, data: null, message: 'Something went wrong' }
+  }
+}
+
+export const sendMessage = async (input: { from: string; to: string; message: string; type: string, }) => {
+  try {
+    const {from ,to,message, type} = input
+    const response = await fetch(`${API_BASE_URL}/api/message/send-msg`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+       
+      },
+      body: JSON.stringify({ from, to, message, type }),
+    })
+
+    const rawResponse = await response.json()
+
+    if (rawResponse) {
+      return rawResponse
+    }
+  } catch (error) {
+    return { success: false, data: null, message: 'Something went wrong' }
+  }
+}
+
+export const receiveMessage = async (input: { from: string; to: string; page: number;}) => {
+  try {
+    const {from ,to,page} = input
+        if (!from) {
+      return { success: false, data: null, message: 'Do not let the user info send empty' }
+    }
+
+    if (!to) {
+      return { success: false, data: null, message: 'Do not let the user info receive empty' }
+    }
+
+    const response = await fetch(`${API_BASE_URL}/api/message/received-msg`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+       
+      },
+       body: JSON.stringify({ from, to, page, limit: 100 }),
+    })
+
+      const rawResponse = (await response.json()) 
+
+    if (rawResponse) {
+      return rawResponse
+    }
+  } catch (error) {
+    return { success: false, data: null, message: 'Something went wrong' }
+  }
+}
+
+//Word Test
+export const randomWord = async (userId:string, accessToken: string) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/random?userId=${userId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${accessToken}`,
+      },
+    })
+
+    const rawResponse = await response.json()
+
+    if (rawResponse) {
+      return rawResponse
+    }
+  } catch (error) {
+    return { success: false, data: null, message: 'Something went wrong' }
+  }
+}
+
+export const setUpRandomWord = async (input: { number: number; isActivated: boolean; userId: string; topicName: string;level: string, }) => {
+  try {
+    const { number, isActivated, userId, topicName, level } = input
+    
+    if(topicName ===""){
+         return { success: false, data: null, message: 'Please enter your email' }
+
+    }
+    const response = await fetch(`${API_BASE_URL}/api/setup`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+       
+      },
+      body: JSON.stringify({ number, isActivated, userId, topicName,level }),
+    })
+
+    const rawResponse = await response.json()
+
+    if (rawResponse) {
+      return rawResponse
+    }
+  } catch (error) {
+    return { success: false, data: null, message: 'Something went wrong' }
+  }
+}
+export const UpdateSetUpRandomWord = async (input: { number: number; userId: string; topicName: string;level: string, }) => {
+  try {
+    const { number, userId, topicName, level } = input
+
+    if(topicName ===""){
+         return { success: false, data: null, message: 'Please enter your email' }
+
+    }
+    const response = await fetch(`${API_BASE_URL}/api/update-setup`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+       
+      },
+      body: JSON.stringify({ number, userId, topicName,level }),
+    })
+
+    const rawResponse = await response.json()
+
+    if (rawResponse) {
+      return rawResponse
+    }
+  } catch (error) {
+    return { success: false, data: null, message: 'Something went wrong' }
+  }
+}
+
+export const checkUserId = async (userId: string, accessToken: string) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/check-random/${userId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${accessToken}`,
+        
+      },
+    })
+
+    const rawResponse = await response.json()
+
+    if (rawResponse) {
+      return rawResponse
+    }
+  } catch (error) {
+    return { success: false, data: null, message: 'Something went wrong' }
+  }
+}
+
+//Word test result
+export const addResultWordTest = async (input: { resultExam: string; topicName: string; userId: string; accessToken: string }) => {
+  try {
+    const {resultExam, topicName, userId, accessToken } = input
+
+    if (!topicName || topicName === '') {
+      return { success: false, data: null, message: 'Please enter your title' }
+    }
+    if (!topicName || topicName === '') {
+      return { success: false, data: null, message: 'Please enter your title' }
+    }
+    const response = await fetch(`${API_BASE_URL}/api/result-exam/add`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: JSON.stringify({resultExam, topicName, userId }),
+    })
 
     const rawResponse = await response.json()
 

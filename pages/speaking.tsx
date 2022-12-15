@@ -5,15 +5,14 @@ import dynamic from 'next/dynamic'
 const Header = dynamic(() => import('@components/layouts/Header/index').then((mod) => mod.Header), {
   ssr: false,
 })
-const HomePage = dynamic(() => import('@components/screens/Home/index').then((mod) => mod.HomePage), {
+const SpeakingPage = dynamic(() => import('@components/screens/Speaking').then((mod) => mod.SpeakingPage), {
   ssr: false,
 })
-
 const Home: NextPage = () => {
   return (
     <div>
       <Header />
-      <HomePage />
+      <SpeakingPage />
       <Footer />
     </div>
   )

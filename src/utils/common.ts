@@ -12,26 +12,75 @@ export const MENU_HEADER = [
   
 
 ]
-export const DROPDOWN_MENU = [
+export const DROPDOWN_PRACTICE_MENU = [
     {
     id: 1,
-    name: 'Listening',
+    content: 'Listening',
     path: '/post',
+    type:"link",
   },
   {
     id: 2,
-    name: 'Reading',
+    content: 'Reading',
     path: '/book-hire',
+       type:"link",
+
   },
     {
     id: 3,
-    name: 'Speaking',
+    content: 'Speaking',
     path: '/post',
+    type:"link",
+
   },
   {
     id: 4,
-    name: 'Writting',
+    content: 'Writting',
     path: '/book-hire',
+    type:"link",
+
   },
   
 ]
+export const DROPDOWN_TEST_MENU = [
+    {
+    id: 1,
+    content: 'Word Test',
+    path: '/word_test',
+    type:"link",
+
+  },
+  {
+    id: 2,
+    content: 'Overall Test',
+    path: '/',
+    type:"link",
+
+  },
+  
+]
+
+
+export const DROPDOWN_USER_MENU = [
+    {
+    id: 1,
+    content: 'User Profile',
+    path: '/',
+    type:"link",
+
+  },
+  {
+    id: 2,
+    content: 'Log out',
+    path: '/',
+    type:"div",
+
+  },
+
+  
+]
+export enum TYPE_MESSAGE {
+  TEXT = 'text',
+  GIF = 'gif',
+  STICKER = 'sticker',
+}

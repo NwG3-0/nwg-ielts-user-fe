@@ -4,20 +4,20 @@ import dynamic from 'next/dynamic'
 const Header = dynamic(() => import('@components/layouts/Header/index').then((mod) => mod.Header), {
   ssr: false,
 })
-const PostCreate = dynamic(() => import('@components/screens/Post/PostCreate').then((mod) => mod.PostCreate), {
+const WordTest = dynamic(() => import('@components/screens/Examination/WordTest').then((mod) => mod.WordTest), {
   ssr: false,
 })
 const Footer = dynamic(() => import('@components/layouts/Footer/index').then((mod) => mod.Footer), {
   ssr: false,
 })
-const PostCreatePage: NextPage = () => {
+const PostPage: NextPage = () => {
   return (
     <div>
       <Header />
-      <PostCreate />
+      <WordTest />
       <Footer />
     </div>
   )
 }
 
-export default PostCreatePage
+export default PostPage

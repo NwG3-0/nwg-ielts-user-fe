@@ -2,15 +2,16 @@ import { BinIcon, SearchIcon } from '@components/common/CustomIcon'
 import { CustomModal } from '@components/common/CustomModal'
 import { AddTopicModal } from '@components/widgets/AddTopicModal'
 import { AUTH_TOKEN, USER_INFO } from '@src/models/api'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { createDeck, deleteDeck, getCard, getDeckList } from '@utils/api'
 import { safeParseJSON } from '@utils/json'
 import { QUERY_KEYS } from '@utils/keys'
 import { NOTIFICATION_TYPE, notify } from '@utils/notify'
-import React, { useMemo, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import Slider from 'react-slick'
 
 export const Collection = () => {
+  const queryClient = useQueryClient()
   const [limit, setLimit] = useState<number>(5)
   const [page, setPage] = useState<number>(1)
   const [keyword, setKeyword] = useState<string>('')
@@ -18,6 +19,8 @@ export const Collection = () => {
   const [isOpenAddTopicModal, setIsOpenAddTopicModal] = useState<boolean>(false)
   const [level, setLevel] = useState<string[]>([])
   const [tpName, setTopicName] = useState<string>('')
+  const [showDeteil, setShowDetail] = useState<boolean>(false)
+  const [mean, setMean] = useState<any>([])
 
   const userInfo: any = useMemo(() => {
     if (typeof window !== 'undefined') {
@@ -62,7 +65,6 @@ export const Collection = () => {
         const topicName = tpName || deck?.data[0].topicName
         const response = await getCard({ limit, page, keyword, level: level.join(','), topicName })
 
-        console.log(card)
         return response
       } catch (error) {
         console.log(error)
@@ -73,12 +75,24 @@ export const Collection = () => {
       enabled: deck && deck.data !== null,
     },
   )
+
   console.log(card)
+
+  useEffect(() => {
+    if (card) {
+      setMean(
+        card?.data?.map((m: any) => {
+          return JSON.parse(m.meanings)
+        }),
+      )
+    }
+  }, [card])
+
   const onCreate = async (event: { preventDefault: () => void }) => {
     try {
       event.preventDefault()
       if (accessToken) {
-        const { success, data } = await createDeck({
+        const { success } = await createDeck({
           topicName: refTopicName.current.value,
           userId: userInfo?.id,
           accessToken,
@@ -94,10 +108,11 @@ export const Collection = () => {
   const onDelete = async (id: any) => {
     try {
       if (id !== '') {
-        const { success, data } = await deleteDeck(id)
+        const { success } = await deleteDeck(id)
 
         if (success) {
           notify(NOTIFICATION_TYPE.SUCCESS, 'Delete success')
+          queryClient.invalidateQueries([QUERY_KEYS.TOPIC_LIST])
         }
       }
     } catch (error) {}
@@ -113,8 +128,12 @@ export const Collection = () => {
     setTopicName(tpN)
   }
 
+  const onShowDetail = () => {
+    setShowDetail(!showDeteil)
+  }
+
   const handleCheck = (e: { target: { checked: boolean; value: string } }) => {
-    let updatedList: any = [...level]
+    let updatedList: string[] = [...level]
     if (e.target.checked) {
       updatedList = [...level, e.target.value]
     } else {
@@ -122,11 +141,66 @@ export const Collection = () => {
     }
     setLevel(updatedList)
   }
+
+  const onAddTopic = async ({ topicName }: { topicName: string }) => {
+    try {
+      if (accessToken && topicName !== '') {
+        const { success } = await createDeck({
+          topicName: topicName,
+          userId: userInfo?.id,
+          accessToken,
+        })
+
+        if (success) {
+          onCloseTopicModal()
+          notify(NOTIFICATION_TYPE.SUCCESS, 'Create success')
+          queryClient.invalidateQueries([QUERY_KEYS.TOPIC_LIST])
+        }
+      } else {
+        notify(NOTIFICATION_TYPE.ERROR, 'Invalid topic name')
+      }
+    } catch (error) {}
+  }
+
   return (
     <div className="w-[80%] grid grid-cols-6 m-auto gap-x-[48px] gap-y-[32px] my-[48px]">
       <div className="col-span-4 h-[500px]  border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-slate-100 rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
         <div>
-          <Slider></Slider>
+          <Slider>
+            {card &&
+              card?.data?.map((c: any, index: any, arr: any) => {
+                return (
+                  <div key={index} className="w-full h-[460px] relative">
+                    {showDeteil ? (
+                      <div>
+                        <div className="text-[120px] text-center mt-[80px]">{c.word}</div>
+                        <div className="text-center text-[32px]">{c.phonetic}</div>
+                      </div>
+                    ) : (
+                      <div>
+                        {JSON.parse(c.meanings)?.map((wordDetail: any) => {
+                          return (
+                            <div className="flex flex-col gap-y-[12px]">
+                              <div className="italic">{wordDetail?.partOfSpeech}</div>
+                              <div>
+                                <div className="font-semibold">Defination :</div>
+                                <div>-{wordDetail?.definitions[0]?.definition}</div>
+                              </div>
+                              <div>{wordDetail?.synonyms}</div>
+                            </div>
+                          )
+                        })}
+                      </div>
+                    )}
+
+                    <button onClick={onShowDetail}>Roll Back</button>
+                    <div className="absolute bottom-[0px] text-[16px] right-[50%]">
+                      {index + 1}/{arr.length}
+                    </div>
+                  </div>
+                )
+              })}
+          </Slider>
         </div>
       </div>
       <div className="col-span-2 h-[500px]  border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-slate-100 rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col  leading-normal">
@@ -180,8 +254,9 @@ export const Collection = () => {
           >
             Create
           </button>
+
           <CustomModal isOpen={isOpenAddTopicModal} onRequestClose={() => setIsOpenAddTopicModal(false)}>
-            <AddTopicModal onCloseTopicModal={onCloseTopicModal} />
+            <AddTopicModal onCloseTopicModal={onCloseTopicModal} onCreate={onAddTopic} />
           </CustomModal>
         </div>
       </div>
