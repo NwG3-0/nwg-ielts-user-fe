@@ -1,4 +1,4 @@
-import { USER_INFO, AUTH_TOKEN } from '@src/models/api'
+import { USER_INFO } from '@src/models/api'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { receiveMessage, sendMessage } from '@utils/api'
 import { TYPE_MESSAGE } from '@utils/common'
@@ -24,10 +24,9 @@ export const MessageModal = ({ onOpenMessageModal }: Props) => {
   const [showGifPopup, setShowGifPopup] = useState<boolean>(false)
   const [showStickerPopup, setShowStickerPopup] = useState<boolean>(false)
 
-  const [page, setPage] = useState<number>(1)
+  const [page] = useState<number>(1)
   const [messageValue, setMessageValue] = useState<string>('')
-  const [sticker, setSticker] = useState<string>('')
-  const [receivedMsgData, setReceivedMsgData] = useState<any>({})
+  const [receivedMsgData] = useState<any>({})
   const [messageData, setMessageData] = useState<any[]>([])
 
   const userInfo: any = useMemo(() => {
@@ -35,11 +34,11 @@ export const MessageModal = ({ onOpenMessageModal }: Props) => {
       return safeParseJSON(localStorage.getItem(USER_INFO) as string)
     }
   }, [])
-  const accessToken = useMemo(() => {
-    if (typeof window !== 'undefined') {
-      return localStorage.getItem(AUTH_TOKEN)
-    }
-  }, [])
+  // const accessToken = useMemo(() => {
+  //   if (typeof window !== 'undefined') {
+  //     return localStorage.getItem(AUTH_TOKEN)
+  //   }
+  // }, [])
 
   useEffect(() => {
     if (userInfo) {
@@ -106,11 +105,7 @@ export const MessageModal = ({ onOpenMessageModal }: Props) => {
     } catch (error) {}
   }
 
-  const {
-    data: getMessage,
-    isLoading: isLoadingCard,
-    error: isErrorCard,
-  } = useQuery(
+  const { data: getMessage } = useQuery(
     [QUERY_KEYS.MESSAGE_LIST],
     async () => {
       try {

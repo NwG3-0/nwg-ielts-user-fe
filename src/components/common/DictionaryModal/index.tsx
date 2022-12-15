@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import { CloseIcon1, SearchIcon, StarIcon } from '../CustomIcon'
 import { LoadingbtnAnimate } from '../LoadingButton/LoadingbtnAnimate'
 
@@ -20,10 +20,6 @@ export const DictionaryModal = ({
   isSave,
 }: Props) => {
   const searchWordInput = useRef() as React.MutableRefObject<HTMLInputElement>
-  const [wordName, setWordName] = useState<string>('')
-  const [phonetic, setPhonetic] = useState<string>('')
-  const [audio, setAudio] = useState<string>('')
-  const [meaning, setMeaning] = useState<string>('')
 
   return (
     <div className=" fixed  h-[60vh] w-[320px] top-[20%] right-[16px] z-10">

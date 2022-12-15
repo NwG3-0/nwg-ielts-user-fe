@@ -2,9 +2,7 @@ import { LoadingButton } from '@components/common/LoadingButton'
 import { AUTH_TOKEN } from '@src/models/api'
 import { createPost } from '@utils/api'
 import { NOTIFICATION_TYPE, notify } from '@utils/notify'
-import { useRouter } from 'next/router'
 import { useMemo, useRef, useState } from 'react'
-import ReactModal from 'react-modal'
 import ReactQuill from 'react-quill'
 
 export const PostCreate = () => {
@@ -13,8 +11,7 @@ export const PostCreate = () => {
   const [imageSrc, setImageSrc] = useState<any>('')
   const [description, setDescription] = useState('')
   const [isLoading, setIsLoading] = useState(false)
-  const [uploadData, setUploadData] = useState()
-  const router = useRouter()
+  const [_uploadData, setUploadData] = useState()
 
   const accessToken = useMemo(() => {
     if (typeof window !== 'undefined') {

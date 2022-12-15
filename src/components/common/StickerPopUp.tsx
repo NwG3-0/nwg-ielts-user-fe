@@ -1,4 +1,4 @@
-import { PickerComponent, SearchComponent, StoreComponent, UnifiedComponent } from 'stipop-react-sdk'
+import { SearchComponent } from 'stipop-react-sdk'
 
 export const StickerPopUp = (props: any) => {
   const onStickerClick = (e: any) => {

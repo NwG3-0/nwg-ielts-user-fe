@@ -1,6 +1,6 @@
 import Link from 'next/link'
-import { useEffect, useRef, useState } from 'react'
-import { motion, Variants } from 'framer-motion'
+import { useRef, useState } from 'react'
+import { motion } from 'framer-motion'
 import { useClickOutside } from '@hooks/useClickOutSide'
 import { DropdownArrow } from './CustomIcon'
 

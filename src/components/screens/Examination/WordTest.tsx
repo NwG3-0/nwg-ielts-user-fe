@@ -4,7 +4,6 @@ import { AUTH_TOKEN, USER_INFO } from '@src/models/api'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import {
   addResultWordTest,
-  checkCard,
   checkUserId,
   getDeckList,
   randomWord,
@@ -14,8 +13,7 @@ import {
 import { safeParseJSON } from '@utils/json'
 import { QUERY_KEYS } from '@utils/keys'
 import { NOTIFICATION_TYPE, notify } from '@utils/notify'
-import { use, useCallback, useEffect, useMemo, useState } from 'react'
-import Slider from 'react-slick'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { FillWord } from './FillWord'
 import { KeyBoard } from './KeyBoard'
 
@@ -53,11 +51,7 @@ export const WordTest = () => {
     }
   }, [])
 
-  const {
-    data: checkUser,
-    isLoading: isLoadingUser,
-    error: isErrorUser,
-  } = useQuery(
+  const { data: checkUser } = useQuery(
     [QUERY_KEYS.USER_RANDOM_CHECK],
     async () => {
       if (accessToken && userInfo) {
@@ -77,11 +71,7 @@ export const WordTest = () => {
     },
   )
 
-  const {
-    data: deck,
-    isLoading: isLoadingDeck,
-    error: isErrorDeck,
-  } = useQuery(
+  const { data: deck } = useQuery(
     [QUERY_KEYS.TOPIC_LIST],
     async () => {
       try {
@@ -99,11 +89,7 @@ export const WordTest = () => {
     },
   )
 
-  const {
-    data: rdWord,
-    isLoading: isLoadingrdWord,
-    error: isErrorRdWord,
-  } = useQuery(
+  const { data: rdWord } = useQuery(
     [QUERY_KEYS.WORD_TEST],
     async () => {
       if (accessToken && userInfo) {
@@ -365,7 +351,7 @@ export const WordTest = () => {
             </div>
             <div className="absolute bottom-[40px] right-[4px]">You have 3 chance each word</div>
             <div className="absolute bottom-[4px] right-[4px]  flex">
-              {Heart.map((heart) => (
+              {Heart.map(() => (
                 <img className="w-[32px] h-[32px]" src="/images/HeartIcon.gif" />
               ))}
             </div>

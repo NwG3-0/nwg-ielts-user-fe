@@ -6,11 +6,11 @@ import { MessageModal } from '@components/common/MessageModal'
 import { SaveCardModal } from '@components/widgets/SaveCardModal'
 import { AUTH_TOKEN, USER_INFO } from '@src/models/api'
 import { useQuery } from '@tanstack/react-query'
-import { checkCard, getDictionary, isLogin, logout } from '@utils/api'
+import { checkCard, getDictionary, isLogin } from '@utils/api'
 import { MENU_HEADER, DROPDOWN_TEST_MENU, DROPDOWN_USER_MENU, DROPDOWN_PRACTICE_MENU } from '@utils/common'
 import { safeParseJSON } from '@utils/json'
 import { QUERY_KEYS } from '@utils/keys'
-import { NOTIFICATION_TYPE, notify } from '@utils/notify'
+// import { NOTIFICATION_TYPE, notify } from '@utils/notify'
 import Link from 'next/link'
 import { useMemo, useState } from 'react'
 import HotKeys from 'react-hot-keys'
@@ -71,7 +71,7 @@ export const Header = () => {
     try {
       const userId = userInfo?.id
       if (accessToken) {
-        const { success, data: dataCheck } = await checkCard({ word, userId })
+        const { data: dataCheck } = await checkCard({ word, userId })
         if (dataCheck) {
           setSaveChecked(true)
         } else {
@@ -81,17 +81,18 @@ export const Header = () => {
     } catch (error) {}
   }
 
-  const OnLogout = async () => {
-    try {
-      if (accessToken) {
-        const { success } = await logout(accessToken)
+  // const OnLogout = async () => {
+  //   try {
+  //     if (accessToken) {
+  //       const { success } = await logout(accessToken)
 
-        if (success) {
-          notify(NOTIFICATION_TYPE.SUCCESS, 'Logout success')
-        }
-      }
-    } catch (error) {}
-  }
+  //       if (success) {
+  //         notify(NOTIFICATION_TYPE.SUCCESS, 'Logout success')
+  //       }
+  //     }
+  //   } catch (error) {}
+  // }
+
   const onCloseDictionaryModal = () => {
     setIsOpenDictionary(false)
   }

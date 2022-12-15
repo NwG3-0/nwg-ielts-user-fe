@@ -4,15 +4,11 @@ import { QUERY_KEYS } from '@utils/keys'
 import React, { useState } from 'react'
 
 export const Post = () => {
-  const [limit, setLimit] = useState<number>(5)
-  const [page, setPage] = useState<number>(1)
-  const [keyword, setKeyword] = useState<string>('')
+  const [limit] = useState<number>(5)
+  const [page] = useState<number>(1)
+  const [keyword] = useState<string>('')
 
-  const {
-    data: post,
-    isLoading,
-    error,
-  } = useQuery(
+  const { data: post } = useQuery(
     [QUERY_KEYS.POST_LIST],
     async () => {
       try {
