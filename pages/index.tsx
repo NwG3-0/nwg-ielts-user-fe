@@ -1,21 +1,21 @@
-import { Footer } from '@components/layouts/Footer'
+import Footer from '@components/layouts/Footer'
+import Header from '@components/layouts/Header'
+import HomePage from '@components/screens/Home'
 import type { NextPage } from 'next'
 import dynamic from 'next/dynamic'
 
-const Header = dynamic(() => import('@components/layouts/Header/index').then((mod) => mod.Header), {
-  ssr: false,
-})
-const HomePage = dynamic(() => import('@components/screens/Home/index').then((mod) => mod.HomePage), {
+const MenuWeb = dynamic<any>(() => import('@components/layouts/MenuWeb').then((mod) => mod.MenuWeb), {
   ssr: false,
 })
 
 const Home: NextPage = () => {
   return (
-    <div>
+    <>
       <Header />
+      <MenuWeb />
       <HomePage />
       <Footer />
-    </div>
+    </>
   )
 }
 

@@ -1,63 +1,59 @@
 import Link from 'next/link'
-import React from 'react'
-import { motion } from 'framer-motion'
+import React, { useEffect, useState } from 'react'
 
-export const HomePage = () => {
+const HomePage = () => {
+  const [isCloudRun, setCloudRun] = useState<boolean>(false)
+
+  useEffect(() => {
+    setTimeout(() => {
+      setCloudRun(true)
+    }, 1500)
+  }, [])
+
   return (
     <div className="w-full ">
-      <motion.div
-        initial={{
-          x: -1080,
-          y: 0,
-        }}
-        animate={{
-          x: 0,
-          y: 0,
-        }}
-        transition={{ duration: 0.5 }}
-        className=" relative w-full banner h-[700px] bg-[url('/images/bigbenImg.webp')] bg-cover overflow-hidden"
-      >
-        <div className="clound1 absolute top-[60px]">
-          <img className="" src="/images/cloundImg.webp"></img>
-        </div>
-        <div className="clound2 absolute top-[-50px]">
-          <img className="" src="/images/cloundImg2.webp"></img>
-        </div>
-        <div className="clound3 absolute top-[0px]">
-          <img className="" src="/images/cloundImg.webp"></img>
-        </div>
-        <div className="clound4 absolute top-[0px]">
-          <img className="" src="/images/cloundImg2.webp"></img>
-        </div>
-      </motion.div>
-      <div className="bg-[url('/images/home-background-navbar.webp')] bg-cover w-full">
-        <div className="home-title w-full text-center  font-extrabold  text-8xl ">
+      <div className=" relative w-full h-[900px] bg-[url('/images/bigbenImg.webp')] bg-cover overflow-hidden">
+        {isCloudRun && (
+          <>
+            <div className="clound1 absolute top-[60px]">
+              <img src="/images/cloundImg.webp" className="w-[1700px] 900px" alt="Cloud Run" />
+            </div>
+            <div className="clound2 absolute top-[-50px]">
+              <img src="/images/cloundImg2.webp" className="w-[1170px] h-[500px]" alt="Cloud Run" />
+            </div>
+            <div className="clound3 absolute top-[0px]">
+              <img src="/images/cloundImg.webp" className="w-[1700px] 900px" alt="Cloud Run" />
+            </div>
+            <div className="clound4 absolute top-[0px]">
+              <img src="/images/cloundImg2.webp" className="w-[1170px] h-[500px]" alt="Cloud Run" />
+            </div>
+          </>
+        )}
+      </div>
+      <div className="bg-[url('/images/home-background-navbar.webp')] bg-cover w-full py-[50px]">
+        <div className="home-title w-full text-center font-extrabold text-8xl ">
           <h1>Choose your skill</h1>
         </div>
         <div className="grid md:grid-cols-4 py-[32px] grid-cols-2 gap-4">
           <div className="m-auto flex flex-col px-[32px] py-[16px] bg-white rounded-full">
-            <img className="w-[100px] h-[100px]" src="/images/ListeningIcon.webp "></img>
+            <img src="/images/ListeningIcon.webp" alt="Listening Icon" className="w-[102px] h-[102px]" />
             <div className="text-center text-[24px] font-bold text-orange-500">Listening</div>
           </div>
           <div className="m-auto flex flex-col px-[32px] py-[16px] bg-white rounded-full">
-            <img className="w-[100px] h-[100px]" src="/images/ReadingIcon.webp"></img>
+            <img src="/images/ReadingIcon.webp" alt="Reading Icon" className="w-[102px] h-[102px]" />
             <div className="text-center text-[24px] font-bold text-orange-500">Reading</div>
           </div>
           <div className="m-auto flex flex-col px-[32px] py-[16px] bg-white rounded-full">
-            <img className="w-[100px] h-[100px]" src="/images/WrittingIcon.webp"></img>
-            <div className="text-center text-[24px] font-bold text-orange-500">Writting</div>
+            <img src="/images/WrittingIcon.webp" alt="Writing Icon" className="w-[102px] h-[102px]" />
+            <div className="text-center text-[24px] font-bold text-orange-500">Writing</div>
           </div>
           <div className="m-auto flex flex-col px-[32px] py-[16px] bg-white rounded-full">
-            <img className="w-[100px] h-[100px]" src="/images/SpeakingIcon.webp"></img>
+            <img src="/images/SpeakingIcon.webp" alt="Speaking Icon" className="w-[102px] h-[102px]" />
             <div className="text-center text-[24px] font-bold text-orange-500">Speaking</div>
           </div>
         </div>
       </div>
-      <div
-        data-aos="fade-up"
-        data-aos-anchor-placement="top-bottom"
-        className=" w-full bg-[url('/images/background-footer.webp')] h-[490px] bg-cover"
-      >
+      <div className=" w-full bg-[url('/images/background-footer.webp')] h-[490px] bg-cover">
         <div className=" w-[80%] m-auto text-center pt-[48px]">
           <div className="text-[50px] font-bold py-[36px]">Start a Journey. Enroll Now</div>
           <div className="opacity-75 uppercase mb-[48px]">LEARN SOMETHING WHEREVER YOU ARE</div>
@@ -70,3 +66,5 @@ export const HomePage = () => {
     </div>
   )
 }
+
+export default HomePage

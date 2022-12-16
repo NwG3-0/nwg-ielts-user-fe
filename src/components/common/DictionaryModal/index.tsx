@@ -8,7 +8,7 @@ interface Props {
   onSearch: (wordSearch: string) => void
   onCloseDictionaryModal: () => void
   onOpenSaveCardModal: () => void
-  isSave: any
+  isSave: boolean
 }
 
 export const DictionaryModal = ({
@@ -44,14 +44,14 @@ export const DictionaryModal = ({
               <div>
                 <div className="font-bold ">Prononciation:</div>
                 {word &&
-                  word[0]?.phonetics.map((spelling: any) => {
-                    return <div>{spelling.text}</div>
+                  word[0]?.phonetics.map((spelling: any, index: number) => {
+                    return <div key={`spelling ${index}`}>{spelling.text}</div>
                   })}
               </div>
               {word &&
-                word[0]?.meanings.map((mean: any) => {
+                word[0]?.meanings.map((mean: any, index: number) => {
                   return (
-                    <div>
+                    <div key={`word ${index}`}>
                       <div className="font-bold">{mean?.partOfSpeech}:</div>
                       <div>
                         {mean?.definitions.map((define: any) => {
@@ -62,9 +62,9 @@ export const DictionaryModal = ({
                   )
                 })}
               {word &&
-                word[0]?.phonetics.map((voice: any) => {
+                word[0]?.phonetics.map((voice: any, index: number) => {
                   return (
-                    <div className="my-[16px]">
+                    <div className="my-[16px]" key={`voice ${index}`}>
                       <div className="font-bold text-blue-800">Spelling:</div>
                       {voice.audio != '' && (
                         <audio controls>

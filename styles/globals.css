@@ -4,6 +4,7 @@
 
 html,
 body {
+  overflow-x: hidden;
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
@@ -199,7 +200,7 @@ pointer-events :auto;
   animation :cloundOne infinite 60s linear;
 }
 
-@keyframes cloundOne 
+@keyframes cloundOne
 {
   0%{
     transform :translateX(-100%);
@@ -243,19 +244,19 @@ pointer-events :auto;
   margin:0;
   padding:0;
   color:#262626;
-  background-image: linear-gradient(to right,#f00,#ff0,#0ff,#0f0,#00f); 
+  background-image: linear-gradient(to right,#f00,#ff0,#0ff,#0f0,#00f);
   background-clip: text;
--webkit-background-clip: text;
-color: transparent;
-  animation :changeTextColor 20s linear infinite;
+  -webkit-background-clip: text;
+  color: transparent;
+  /* animation :changeTextColor 20s linear infinite; */
   background-size:1000%;
 }
 
-@keyframes changeTextColor {
-  0%{ background-position:0% 100%;}
-   50%{background-position:100% 0%;}
-    100%{background-position:0% 100%;}
-}
+/* @keyframes changeTextColor {
+  0% { background-position:0% 100%; }
+  50% { background-position:100% 0%; }
+  100% { background-position:0% 100%; }
+} */
 
 .zombiebox{
   position :absolute;
