@@ -14,17 +14,13 @@ export const testSubMenu = [
   },
 ]
 
-export const Header = () => {
+const Header = () => {
   return (
-    <div
-      className="bg-[#f0d0b4]"
-    >
+    <div className="bg-[#f0d0b4]">
       <div className="flex justify-between items-center container lg:w-[1240px] mx-auto py-[20px]">
-        <div className="w-[150px] h-[150px]">
-          <Link href={'/'}>
-            <img src="/images/Logo.webp" className="" />
-          </Link>
-        </div>
+        <Link href={'/'}>
+          <img src="/images/Logo.webp" className="w-[100px] h-[100px]" alt="Logo Web" />
+        </Link>
         <div className="flex gap-[20px] items-center">
           <div className="flex items-center gap-[20px]">
             {MENU_HEADER.map((item) => (
@@ -47,7 +43,8 @@ export const Header = () => {
           </div>
         </div>
       </div>
-
     </div>
   )
 }
+
+export default Header

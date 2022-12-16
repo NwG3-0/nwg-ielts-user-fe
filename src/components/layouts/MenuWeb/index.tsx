@@ -1,16 +1,16 @@
-import { AUTH_TOKEN, USER_INFO } from "@src/models/api"
-import { useQuery } from "@tanstack/react-query"
-import { checkCard, getDictionary } from "@utils/api"
-import { safeParseJSON } from "@utils/json"
-import { useMemo, useState } from "react"
+import { AUTH_TOKEN, USER_INFO } from '@src/models/api'
+import { useQuery } from '@tanstack/react-query'
+import { checkCard, getDictionary } from '@utils/api'
+import { safeParseJSON } from '@utils/json'
+import { useMemo, useState } from 'react'
 import HotKeys from 'react-hot-keys'
 import { motion } from 'framer-motion'
-import { CustomModal } from "@components/common/CustomModal"
-import { SaveCardModal } from "@components/widgets/SaveCardModal"
-import { MessageIcon } from "@components/common/CustomIcon"
-import { DictionaryModal } from "@components/common/DictionaryModal"
-import { MessageModal } from "@components/common/MessageModal"
-import { QUERY_KEYS } from "@utils/keys"
+import { CustomModal } from '@components/common/CustomModal'
+import { SaveCardModal } from '@components/widgets/SaveCardModal'
+import { MessageIcon } from '@components/common/CustomIcon'
+import { DictionaryModal } from '@components/common/DictionaryModal'
+import { MessageModal } from '@components/common/MessageModal'
+import { QUERY_KEYS } from '@utils/keys'
 
 const trueHotKeysWindow = 'alt+m'
 const trueHotKeysMacOS = 'command+m'
@@ -66,18 +66,6 @@ export const MenuWeb = () => {
     } catch (error) {}
   }
 
-  // const OnLogout = async () => {
-  //   try {
-  //     if (accessToken) {
-  //       const { success } = await logout(accessToken)
-
-  //       if (success) {
-  //         notify(NOTIFICATION_TYPE.SUCCESS, 'Logout success')
-  //       }
-  //     }
-  //   } catch (error) {}
-  // }
-
   const onCloseDictionaryModal = () => {
     setIsOpenDictionary(false)
   }
@@ -97,8 +85,8 @@ export const MenuWeb = () => {
   }
 
   return (
-      <>
-    <HotKeys keyName="alt+d" onKeyUp={onKeyUp}>
+    <div className="relative z-[1000]">
+      <HotKeys keyName="alt+d" onKeyUp={onKeyUp}>
         {isOpenDictionary && (
           <DictionaryModal
             isLoading={isLoadingWord}
@@ -126,7 +114,7 @@ export const MenuWeb = () => {
           }}
           className="fixed right-[12px] top-[50%] "
         >
-          <img className="hover:scale-125 cursor-pointer" src="/images/DictionaryIcon.webp" />
+          <img className="hover:scale-125 cursor-pointer w-[64px] h-[64px]" src="/images/DictionaryIcon.webp" />
         </motion.div>
       )}
       <HotKeys keyName="alt+m" onKeyUp={onKeyUp}>
@@ -155,6 +143,6 @@ export const MenuWeb = () => {
       <CustomModal isOpen={isOpenSaveCardModal} onRequestClose={() => setIsSaveCardModal(false)}>
         <SaveCardModal word={wordDetail} />
       </CustomModal>
-      </>
+    </div>
   )
 }

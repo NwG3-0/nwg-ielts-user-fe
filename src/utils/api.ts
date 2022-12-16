@@ -3,7 +3,11 @@ import { API_DICTIONARY_URL, AUTH_TOKEN, USER_INFO } from '@src/models/api'
 export const API_BASE_URL = process.env.API_BASE_URL ?? 'http://localhost:4000'
 
 export const isLogin = () => {
-  return !!localStorage.getItem(USER_INFO) && !!localStorage.getItem(AUTH_TOKEN)
+  if (typeof window !== 'undefined') {
+    return !!localStorage.getItem(USER_INFO) && !!localStorage.getItem(AUTH_TOKEN)
+  } else {
+    return false
+  }
 }
 
 export const login = async ({ email, password }: { email: string; password: string }) => {
@@ -84,8 +88,7 @@ export const verify = async ({ email, otpCode }: { email: string; otpCode: strin
   }
 }
 
-export const logout = async (  accessToken: string) => {
-  
+export const logout = async (accessToken: string) => {
   try {
     const response = await fetch(`${API_BASE_URL}/api/auth/logout`, {
       method: 'POST',
@@ -293,20 +296,18 @@ export const getCard = async (input: {
   }
 }
 
-export const checkCard = async (input: {word:string,userId:string} ) => {
+export const checkCard = async (input: { word: string; userId: string }) => {
   try {
     const word = input.word
     const userId = input.userId
 
-    const response = await fetch(`${API_BASE_URL}/api/card/check`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json', 
-        },
-        body: JSON.stringify( {word,userId}),
+    const response = await fetch(`${API_BASE_URL}/api/card/check`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
       },
-    )
+      body: JSON.stringify({ word, userId }),
+    })
 
     const rawResponse = await response.json()
 
@@ -318,7 +319,16 @@ export const checkCard = async (input: {word:string,userId:string} ) => {
   }
 }
 
-export const createCard = async (input: { topicName: string; word: string; phonetic: string;audio: string; meanings: string;level: string; userId: string; accessToken: string, }) => {
+export const createCard = async (input: {
+  topicName: string
+  word: string
+  phonetic: string
+  audio: string
+  meanings: string
+  level: string
+  userId: string
+  accessToken: string
+}) => {
   try {
     const { topicName, word, phonetic, audio, meanings, userId, level, accessToken } = input
 
@@ -345,14 +355,13 @@ export const createCard = async (input: { topicName: string; word: string; phone
   }
 }
 
-export const sendMessage = async (input: { from: string; to: string; message: string; type: string, }) => {
+export const sendMessage = async (input: { from: string; to: string; message: string; type: string }) => {
   try {
-    const {from ,to,message, type} = input
+    const { from, to, message, type } = input
     const response = await fetch(`${API_BASE_URL}/api/message/send-msg`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-       
       },
       body: JSON.stringify({ from, to, message, type }),
     })
@@ -367,10 +376,10 @@ export const sendMessage = async (input: { from: string; to: string; message: st
   }
 }
 
-export const receiveMessage = async (input: { from: string; to: string; page: number;}) => {
+export const receiveMessage = async (input: { from: string; to: string; page: number }) => {
   try {
-    const {from ,to,page} = input
-        if (!from) {
+    const { from, to, page } = input
+    if (!from) {
       return { success: false, data: null, message: 'Do not let the user info send empty' }
     }
 
@@ -382,12 +391,11 @@ export const receiveMessage = async (input: { from: string; to: string; page: nu
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-       
       },
-       body: JSON.stringify({ from, to, page, limit: 100 }),
+      body: JSON.stringify({ from, to, page, limit: 100 }),
     })
 
-      const rawResponse = (await response.json()) 
+    const rawResponse = await response.json()
 
     if (rawResponse) {
       return rawResponse
@@ -398,7 +406,7 @@ export const receiveMessage = async (input: { from: string; to: string; page: nu
 }
 
 //Word Test
-export const randomWord = async (userId:string, accessToken: string) => {
+export const randomWord = async (userId: string, accessToken: string) => {
   try {
     const response = await fetch(`${API_BASE_URL}/api/random?userId=${userId}`, {
       method: 'GET',
@@ -418,21 +426,25 @@ export const randomWord = async (userId:string, accessToken: string) => {
   }
 }
 
-export const setUpRandomWord = async (input: { number: number; isActivated: boolean; userId: string; topicName: string;level: string, }) => {
+export const setUpRandomWord = async (input: {
+  number: number
+  isActivated: boolean
+  userId: string
+  topicName: string
+  level: string
+}) => {
   try {
     const { number, isActivated, userId, topicName, level } = input
-    
-    if(topicName ===""){
-         return { success: false, data: null, message: 'Please enter your email' }
 
+    if (topicName === '') {
+      return { success: false, data: null, message: 'Please enter your email' }
     }
     const response = await fetch(`${API_BASE_URL}/api/setup`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-       
       },
-      body: JSON.stringify({ number, isActivated, userId, topicName,level }),
+      body: JSON.stringify({ number, isActivated, userId, topicName, level }),
     })
 
     const rawResponse = await response.json()
@@ -444,21 +456,24 @@ export const setUpRandomWord = async (input: { number: number; isActivated: bool
     return { success: false, data: null, message: 'Something went wrong' }
   }
 }
-export const UpdateSetUpRandomWord = async (input: { number: number; userId: string; topicName: string;level: string, }) => {
+export const UpdateSetUpRandomWord = async (input: {
+  number: number
+  userId: string
+  topicName: string
+  level: string
+}) => {
   try {
     const { number, userId, topicName, level } = input
 
-    if(topicName ===""){
-         return { success: false, data: null, message: 'Please enter your email' }
-
+    if (topicName === '') {
+      return { success: false, data: null, message: 'Please enter your email' }
     }
     const response = await fetch(`${API_BASE_URL}/api/update-setup`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-       
       },
-      body: JSON.stringify({ number, userId, topicName,level }),
+      body: JSON.stringify({ number, userId, topicName, level }),
     })
 
     const rawResponse = await response.json()
@@ -478,7 +493,6 @@ export const checkUserId = async (userId: string, accessToken: string) => {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${accessToken}`,
-        
       },
     })
 
@@ -493,9 +507,14 @@ export const checkUserId = async (userId: string, accessToken: string) => {
 }
 
 //Word test result
-export const addResultWordTest = async (input: { resultExam: string; topicName: string; userId: string; accessToken: string }) => {
+export const addResultWordTest = async (input: {
+  resultExam: string
+  topicName: string
+  userId: string
+  accessToken: string
+}) => {
   try {
-    const {resultExam, topicName, userId, accessToken } = input
+    const { resultExam, topicName, userId, accessToken } = input
 
     if (!topicName || topicName === '') {
       return { success: false, data: null, message: 'Please enter your title' }
@@ -509,7 +528,7 @@ export const addResultWordTest = async (input: { resultExam: string; topicName: 
         'Content-Type': 'application/json',
         Authorization: `Bearer ${accessToken}`,
       },
-      body: JSON.stringify({resultExam, topicName, userId }),
+      body: JSON.stringify({ resultExam, topicName, userId }),
     })
 
     const rawResponse = await response.json()

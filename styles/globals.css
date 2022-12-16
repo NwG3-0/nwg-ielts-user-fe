@@ -246,17 +246,17 @@ pointer-events :auto;
   color:#262626;
   background-image: linear-gradient(to right,#f00,#ff0,#0ff,#0f0,#00f);
   background-clip: text;
--webkit-background-clip: text;
-color: transparent;
-  animation :changeTextColor 20s linear infinite;
+  -webkit-background-clip: text;
+  color: transparent;
+  /* animation :changeTextColor 20s linear infinite; */
   background-size:1000%;
 }
 
-@keyframes changeTextColor {
-  0%{ background-position:0% 100%;}
-   50%{background-position:100% 0%;}
-    100%{background-position:0% 100%;}
-}
+/* @keyframes changeTextColor {
+  0% { background-position:0% 100%; }
+  50% { background-position:100% 0%; }
+  100% { background-position:0% 100%; }
+} */
 
 .zombiebox{
   position :absolute;
