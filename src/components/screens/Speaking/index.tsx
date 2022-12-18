@@ -1,3 +1,7 @@
 export const SpeakingPage = () => {
-  return <div>Hello</div>
+  return (
+    <div>
+      <div></div>
+    </div>
+  )
 }

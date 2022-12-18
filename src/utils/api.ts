@@ -540,3 +540,96 @@ export const addResultWordTest = async (input: {
     return { success: false, data: null, message: 'Something went wrong' }
   }
 }
+
+export const addSpeakingTopic = async (input: {
+  question: string
+  expiredTime: number
+  topicName: string
+  accessToken: string
+}) => {
+  try {
+    const { question, expiredTime, topicName, accessToken } = input
+
+    if (!question) {
+      return { success: false, data: null, message: 'Invalid question' }
+    }
+
+    if (!expiredTime) {
+      return { success: false, data: null, message: 'Invalid expired time' }
+    }
+
+    if (!topicName) {
+      return { success: false, data: null, message: 'Invalid topic name' }
+    }
+
+    if (!accessToken) {
+      return { success: false, data: null, message: 'Invalid Access Token' }
+    }
+
+    const response = await fetch(`${API_BASE_URL}/api/speaking/add`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: JSON.stringify({ question, expiredTime, topicName }),
+    })
+
+    const rawResponse = await response.json()
+
+    if (rawResponse) {
+      return rawResponse
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const addResultSkill = async (input: {
+  result: string
+  topic: string
+  user_id: string
+  skill: string
+  accessToken: string
+}) => {
+  try {
+    const { result, topic, user_id, skill, accessToken } = input
+
+    if (!result) {
+      return { success: false, data: null, message: 'Invalid results' }
+    }
+
+    if (!topic) {
+      return { success: false, data: null, message: 'Invalid Topic' }
+    }
+
+    if (!user_id) {
+      return { success: false, data: null, message: 'Invalid User Id' }
+    }
+
+    if (!skill) {
+      return { success: false, data: null, message: 'Invalid Skill' }
+    }
+
+    if (!accessToken) {
+      return { success: false, data: null, message: 'Invalid Access Token' }
+    }
+
+    const response = await fetch(`${API_BASE_URL}/api/speaking/add`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: JSON.stringify({ result, topic, user_id, skill }),
+    })
+
+    const rawResponse = await response.json()
+
+    if (rawResponse) {
+      return rawResponse
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}

@@ -27,6 +27,7 @@ export const MenuWeb = () => {
       return safeParseJSON(localStorage.getItem(USER_INFO) as string)
     }
   }, [])
+
   const accessToken = useMemo(() => {
     if (typeof window !== 'undefined') {
       return localStorage.getItem(AUTH_TOKEN)

@@ -22,10 +22,10 @@ const HomePage = () => {
               <img src="/images/cloundImg2.webp" className="w-[1170px] h-[500px]" alt="Cloud Run" />
             </div>
             <div className="clound3 absolute top-[0px]">
-              <img src="/images/cloundImg.webp" className="w-[1700px] 900px" alt="Cloud Run" />
+              <img src="/images/cloundImg.webp" alt="Cloud Run" />
             </div>
             <div className="clound4 absolute top-[0px]">
-              <img src="/images/cloundImg2.webp" className="w-[1170px] h-[500px]" alt="Cloud Run" />
+              <img src="/images/cloundImg2.webp" alt="Cloud Run" />
             </div>
           </>
         )}

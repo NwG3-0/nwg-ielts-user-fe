@@ -6,6 +6,7 @@ import dynamic from 'next/dynamic'
 const SpeakingPage = dynamic(() => import('@components/screens/Speaking').then((mod) => mod.SpeakingPage), {
   ssr: false,
 })
+
 const Home: NextPage = () => {
   return (
     <div>
