@@ -248,15 +248,15 @@ pointer-events :auto;
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
-  /* animation :changeTextColor 20s linear infinite; */
+  animation :changeTextColor 20s linear infinite;
   background-size:1000%;
 }
 
-/* @keyframes changeTextColor {
+@keyframes changeTextColor {
   0% { background-position:0% 100%; }
   50% { background-position:100% 0%; }
   100% { background-position:0% 100%; }
-} */
+}
 
 .zombiebox{
   position :absolute;
@@ -299,5 +299,10 @@ background-position:1293px;
   transform: rotateX(180deg);
   transition: 0.7s;
   transform-origin: center;
+}
+
+.hover-scale:hover {
+  transform: scale(1.25) !important;
+  transition: 0.2s !important;
 }
 

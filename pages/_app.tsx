@@ -2,7 +2,6 @@ import type { AppProps } from 'next/app'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import 'react-quill/dist/quill.snow.css'
-
 import jwtDecode from 'jwt-decode'
 import '../styles/globals.css'
 import 'slick-carousel/slick/slick.css'
@@ -13,6 +12,9 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import { isLogin } from '@utils/api'
 import { AUTH_TOKEN, USER_INFO } from '@src/models/api'
+import AOS from 'aos'
+import Head from 'next/head'
+import 'aos/dist/aos.css'
 
 dayjs.extend(utc)
 
@@ -33,11 +35,26 @@ function MyApp({ Component, pageProps }: AppProps) {
     }
   }, [authToken])
 
+  useEffect(() => {
+    AOS.init({
+      once: false,
+    })
+  }, [])
+
   return (
-    <QueryClientProvider client={queryClient}>
-      <Component {...pageProps} />
-      <ToastContainer />
-    </QueryClientProvider>
+    <>
+      <Head>
+        <meta
+          name="viewport"
+          // eslint-disable-next-line max-len
+          content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover"
+        />
+      </Head>
+      <QueryClientProvider client={queryClient}>
+        <Component {...pageProps} />
+        <ToastContainer />
+      </QueryClientProvider>
+    </>
   )
 }
 

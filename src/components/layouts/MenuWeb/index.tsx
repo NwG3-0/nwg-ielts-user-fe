@@ -4,7 +4,6 @@ import { checkCard, getDictionary } from '@utils/api'
 import { safeParseJSON } from '@utils/json'
 import { useMemo, useState } from 'react'
 import HotKeys from 'react-hot-keys'
-import { motion } from 'framer-motion'
 import { CustomModal } from '@components/common/CustomModal'
 import { SaveCardModal } from '@components/widgets/SaveCardModal'
 import { MessageIcon } from '@components/common/CustomIcon'
@@ -100,46 +99,34 @@ export const MenuWeb = () => {
         )}
       </HotKeys>
       {!isOpenDictionary && (
-        <motion.div
-          initial={{
-            x: 100,
-            y: 0,
-          }}
-          animate={{
-            x: 0,
-            y: 0,
-          }}
-          transition={{ duration: 0.5 }}
+        <div
+          data-aos-offset="0"
+          data-aos="fade-left"
+          data-aos-delay="500"
           onClick={() => {
             setIsOpenDictionary(true)
           }}
           className="fixed right-[12px] top-[50%] "
         >
           <img className="hover:scale-125 cursor-pointer w-[64px] h-[64px]" src="/images/DictionaryIcon.webp" />
-        </motion.div>
+        </div>
       )}
       <HotKeys keyName="alt+m" onKeyUp={onKeyUp}>
         {isMessageModal && <MessageModal onOpenMessageModal={onOpenMessageModal} />}
       </HotKeys>
 
       {!isMessageModal && (
-        <motion.div
-          initial={{
-            x: 100,
-            y: 0,
-          }}
-          animate={{
-            x: 0,
-            y: 0,
-          }}
-          transition={{ type: 'spring', duration: 0.5 }}
+        <div
+          data-aos-offset="0"
+          data-aos="fade-left"
+          data-aos-delay="500"
           onClick={() => {
             setIsMessageModal(true)
           }}
           className="fixed right-[12px] top-[60%] hover:scale-125 cursor-pointer"
         >
           <MessageIcon width={72} height={72} color={''} />
-        </motion.div>
+        </div>
       )}
       <CustomModal isOpen={isOpenSaveCardModal} onRequestClose={() => setIsSaveCardModal(false)}>
         <SaveCardModal word={wordDetail} />
