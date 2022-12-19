@@ -42,7 +42,7 @@ export const DictionaryModal = ({
           <>
             <div className="absolute top-[64px] overflow-y-scroll h-[70%]">
               <div>
-                <div className="font-bold ">Prononciation:</div>
+                <div className="font-bold ">Pronunciation:</div>
                 {word &&
                   word[0]?.phonetics.map((spelling: any, index: number) => {
                     return <div key={`spelling ${index}`}>{spelling.text}</div>
@@ -82,6 +82,7 @@ export const DictionaryModal = ({
         <div className="absolute bottom-[-48px] right-[50%] translate-x-[50%] " onClick={onCloseDictionaryModal}>
           <CloseIcon1 width={24} height={24} color="#000" />
         </div>
+
         {isSave ? (
           <div className="absolute right-[10%] top-[15%]">
             <StarIcon width={24} height={24} color="yellow" />
