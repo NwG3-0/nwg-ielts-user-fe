@@ -18,9 +18,11 @@ const Header = () => {
   return (
     <div className="bg-[#f0d0b4]">
       <div className="flex justify-between items-center container lg:w-[1240px] mx-auto py-[20px]">
-        <Link href={'/'}>
-          <img src="/images/Logo.webp" className="w-[100px] h-[100px]" alt="Logo Web" />
-        </Link>
+        <div data-aos-offset="0" data-aos="flip-left" data-aos-delay="500">
+          <Link href={'/'}>
+            <img src="/images/Logo.webp" className="w-[100px] h-[100px]" alt="Logo Web" />
+          </Link>
+        </div>
         <div className="flex gap-[20px] items-center">
           <div className="flex items-center gap-[20px]">
             {MENU_HEADER.map((item) => (

@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import { useRef, useState } from 'react'
-import { motion } from 'framer-motion'
 import { useClickOutside } from '@hooks/useClickOutSide'
 import { DropdownArrow } from './CustomIcon'
 
@@ -31,18 +30,18 @@ export const DropdownMenu = ({ classNameCustom, title, subMenu }: Props) => {
         </div>{' '}
       </div>
       {showDropdown && (
-        <motion.div
+        <div
           ref={childRef}
           className="absolute flex z-100 flex-col bg-slate-50 rounded-b-[8px] dropdown-menu drop-shadow-2xl "
         >
           {subMenu.map((tab) => (
             <div className="dropdown-box ">
-              <motion.div className=" z-200 mb-[8px] text-center font-bold text-[16px] py-[16px] px-[8px]  hover:opacity-115 hover:bg-slate-100">
+              <div className=" z-200 mb-[8px] text-center font-bold text-[16px] py-[16px] px-[8px]  hover:opacity-115 hover:bg-slate-100">
                 <Link href={tab.path}>{tab.content}</Link>
-              </motion.div>
+              </div>
             </div>
           ))}
-        </motion.div>
+        </div>
       )}
     </div>
   )
