@@ -5,6 +5,7 @@ interface CustomModalType {
   isOpen: boolean
   onRequestClose: () => void
   children: any
+  classNameCustom: string
 }
 
 const customStyles = {
@@ -18,10 +19,10 @@ const customStyles = {
   },
 }
 
-export const CustomModal = ({ isOpen, onRequestClose, children }: CustomModalType) => {
+export const CustomModal = ({ isOpen, onRequestClose, children, classNameCustom }: CustomModalType) => {
   return (
     <Modal isOpen={isOpen} onRequestClose={onRequestClose} style={customStyles}>
-      <div className="custom-modal w-[500px]">{children}</div>
+      <div className={`custom-modal${classNameCustom} `}>{children}</div>
     </Modal>
   )
 }

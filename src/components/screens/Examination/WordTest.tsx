@@ -1,5 +1,4 @@
 import { SettingIcon } from '@components/common/CustomIcon'
-import { LoadingbtnAnimate } from '@components/common/LoadingButton/LoadingbtnAnimate'
 import { AUTH_TOKEN, USER_INFO } from '@src/models/api'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import {
@@ -343,7 +342,13 @@ export const WordTest = () => {
             </button>
           </div>
         ) : isOnProcess ? (
-          <div className="relative w-full h-full border-solid border-2 border-indigo-600">
+          <div
+            data-aos="fade-right"
+            data-aos-offset="50"
+            data-aos-duration="500"
+            data-aos-delay="300"
+            className="relative w-full h-full border-solid border-2 border-indigo-600"
+          >
             <div className=" text-[24px] mt-[40px] p-[40px]">{wordMeaning}</div>
             <div className="text-[20px] text-center mt-[20px]">{wordPhonetic}</div>
             <div className="absolute right-[50%] bottom-[4px] translate-x-[50%]">
@@ -388,7 +393,6 @@ export const WordTest = () => {
           </div>
         </div>
       )}
-      <LoadingbtnAnimate />
     </div>
   )
 }

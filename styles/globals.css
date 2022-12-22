@@ -188,57 +188,54 @@ pointer-events :auto;
 
 .clound1 {
   animation :cloundOne infinite 30s linear;
+
 }
 
 .clound2 {
-  animation :cloundOne infinite 45s linear;
+  animation :cloundOne infinite 20s linear;
 }
 .clound3 {
-  animation :cloundOne infinite 15s linear;
+  animation :cloundThree infinite 25s linear;
 }
-.clound4 {
-  animation :cloundOne infinite 60s linear;
-}
+
 
 @keyframes cloundOne
 {
   0%{
-    transform :translateX(-100%);
+  transform:translateY(0px);
   }
     100%{
-    transform :translateX(100%);
+   transform:translateY(600px);
+
+   
   }
 }
 
 @keyframes cloundTwo
 {
   0%{
-    transform :translateX(-100%);
+  transform:translateY(0px);
+
   }
     100%{
-    transform :translateX(100%);
+   transform:translateY(300px);
+
   }
 }
 
 @keyframes cloundThree
 {
   0%{
-    transform :translateX(-100%);
+  transform:translateY(-600px);
+
   }
     100%{
-    transform :translateX(100%);
+   transform:translateY(300px);
+
   }
 }
 
-@keyframes cloundFour
-{
-  0%{
-    transform :translateX(-100%);
-  }
-    100%{
-    transform :translateX(100%);
-  }
-}
+
 
 .home-title h1{
   margin:0;
@@ -258,16 +255,7 @@ pointer-events :auto;
   100% { background-position:0% 100%; }
 }
 
-.zombiebox{
-  position :absolute;
-  top :50%;
-  left :50%;
-  transform :translate(-50%,-50%);
-  width : 88px;
-  height:188px;
-  animation : zombiemove 1s steps(10) infinite;
 
-}
 
 @keyframes zombiemove {
   from{

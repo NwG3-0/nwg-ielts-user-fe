@@ -861,3 +861,20 @@ export const MicStop = ({ width, height, color }: IconType) => {
     </svg>
   )
 }
+
+export const RotateLeftIcon = ({ width, height }: IconType) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      version="1.0"
+      width={width}
+      height={height}
+      viewBox="0 0 64.000000 64.000000"
+      preserveAspectRatio="xMidYMid meet"
+    >
+      <g transform="translate(0.000000,64.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none">
+        <path d="M242 614 c-111 -30 -190 -112 -219 -229 -15 -60 -15 -70 0 -130 30 -122 110 -202 232 -232 60 -15 70 -15 130 0 122 30 202 110 232 232 15 60 15 70 0 131 -30 119 -107 199 -223 229 -70 18 -83 18 -152 -1z m78 -90 c0 -18 5 -24 20 -24 12 0 35 -7 53 -16 81 -41 121 -109 115 -195 -6 -78 -42 -133 -111 -165 -60 -28 -89 -30 -107 -9 -16 19 3 45 32 45 68 0 130 69 130 146 0 52 -20 87 -65 114 -42 26 -67 26 -67 0 0 -11 -5 -20 -10 -20 -15 0 -120 68 -120 77 0 11 113 81 123 76 4 -2 7 -15 7 -29z" />
+      </g>
+    </svg>
+  )
+}

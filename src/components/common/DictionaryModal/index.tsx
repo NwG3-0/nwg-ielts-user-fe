@@ -22,7 +22,7 @@ export const DictionaryModal = ({
   const searchWordInput = useRef() as React.MutableRefObject<HTMLInputElement>
 
   return (
-    <div className=" fixed  h-[60vh] w-[320px] top-[20%] right-[16px] z-10">
+    <div data-aos-offset="50" data-aos="fade-left" className=" fixed  h-[60vh] w-[320px] top-[20%] right-[16px] z-10">
       <div className="dictionary w-full h-full absolute rounded-t-[24px] px-[10px] opacity-80 pt-[5px] z-100  shadow-2xl bg-slate-50">
         <div className="flex w-full bg-white rounded-[24px] border-b-2 border-slate-600">
           <input

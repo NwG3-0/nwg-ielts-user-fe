@@ -151,7 +151,11 @@ export const MessageModal = ({ onOpenMessageModal }: Props) => {
   console.log(messageData)
 
   return (
-    <div className=" fixed pt-[5px] z-1 top-[20%] shadow-2xl right-[16px] bg-slate-50 h-[60vh] w-[320px] rounded-[24px]">
+    <div
+      data-aos-offset="50"
+      data-aos="fade-left"
+      className=" fixed pt-[5px] z-1 top-[20%] shadow-2xl right-[16px] bg-slate-50 h-[60vh] w-[320px] rounded-[24px]"
+    >
       <div className="relative w-full h-full">
         <div className="w-full shadow-2xl rounded-[24px] border-b-2 border-slate-400 py-[4px] float-right">
           <div onClick={onOpenMessageModal} className="float-right mr-[12px]">
