@@ -23,7 +23,7 @@ const Header = () => {
             <img src="/images/Logo.webp" className="w-[100px] h-[100px]" alt="Logo Web" />
           </Link>
         </div>
-        <div className="flex gap-[20px] items-center">
+        <div data-aos-offset="0" data-aos="fade-left" data-aos-delay="1000" className="flex gap-[20px] items-center">
           <div className="flex items-center gap-[20px]">
             {MENU_HEADER.map((item) => (
               <Link className=" font-bold text-[22px] relative menu-link" key={item.id} href={item.path}>

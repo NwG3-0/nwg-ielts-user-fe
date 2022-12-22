@@ -128,7 +128,11 @@ export const MenuWeb = () => {
           <MessageIcon width={72} height={72} color={''} />
         </div>
       )}
-      <CustomModal isOpen={isOpenSaveCardModal} onRequestClose={() => setIsSaveCardModal(false)}>
+      <CustomModal
+        classNameCustom="w-[500px]"
+        isOpen={isOpenSaveCardModal}
+        onRequestClose={() => setIsSaveCardModal(false)}
+      >
         <SaveCardModal word={wordDetail} />
       </CustomModal>
     </div>

@@ -1,4 +1,4 @@
-import { BinIcon, SearchIcon } from '@components/common/CustomIcon'
+import { BinIcon, RotateLeftIcon, SearchIcon } from '@components/common/CustomIcon'
 import { CustomModal } from '@components/common/CustomModal'
 import { AddTopicModal } from '@components/widgets/AddTopicModal'
 import { AUTH_TOKEN, USER_INFO } from '@src/models/api'
@@ -7,7 +7,7 @@ import { createDeck, deleteDeck, getCard, getDeckList } from '@utils/api'
 import { safeParseJSON } from '@utils/json'
 import { QUERY_KEYS } from '@utils/keys'
 import { NOTIFICATION_TYPE, notify } from '@utils/notify'
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import Slider from 'react-slick'
 
 export const Collection = () => {
@@ -15,7 +15,7 @@ export const Collection = () => {
   const [limit] = useState<number>(5)
   const [page] = useState<number>(1)
   const [keyword] = useState<string>('')
-  // const refTopicName = useRef() as React.MutableRefObject<HTMLInputElement>
+  const refTopicName = useRef() as React.MutableRefObject<HTMLInputElement>
   const [isOpenAddTopicModal, setIsOpenAddTopicModal] = useState<boolean>(false)
   const [level, setLevel] = useState<string[]>([])
   const [tpName, setTopicName] = useState<string>('')
@@ -80,22 +80,22 @@ export const Collection = () => {
     }
   }, [card])
 
-  // const onCreate = async (event: { preventDefault: () => void }) => {
-  //   try {
-  //     event.preventDefault()
-  //     if (accessToken) {
-  //       const { success } = await createDeck({
-  //         topicName: refTopicName.current.value,
-  //         userId: userInfo?.id,
-  //         accessToken,
-  //       })
+  const onCreate = async (event: { preventDefault: () => void }) => {
+    try {
+      event.preventDefault()
+      if (accessToken) {
+        const { success } = await createDeck({
+          topicName: refTopicName.current.value,
+          userId: userInfo?.id,
+          accessToken,
+        })
 
-  //       if (success) {
-  //         notify(NOTIFICATION_TYPE.SUCCESS, 'Delete success')
-  //       }
-  //     }
-  //   } catch (error) {}
-  // }
+        if (success) {
+          notify(NOTIFICATION_TYPE.SUCCESS, 'Delete success')
+        }
+      }
+    } catch (error) {}
+  }
 
   const onDelete = async (id: any) => {
     try {
@@ -117,6 +117,7 @@ export const Collection = () => {
     setIsOpenAddTopicModal(false)
   }
   const onSelect = (tpN: string) => {
+    console.log(refTopicName)
     setTopicName(tpN)
   }
 
@@ -185,7 +186,9 @@ export const Collection = () => {
                       </div>
                     )}
 
-                    <button onClick={onShowDetail}>Roll Back</button>
+                    <button className="absolute top-0 right-0" onClick={onShowDetail}>
+                      <RotateLeftIcon width={32} height={32} color={''} />
+                    </button>
                     <div className="absolute bottom-[0px] text-[16px] right-[50%]">
                       {index + 1}/{arr.length}
                     </div>
@@ -211,7 +214,9 @@ export const Collection = () => {
               return (
                 <div className="flex">
                   <div
-                    className="w-[80%] hover:bg-slate-100 hover:scale-105 cursor-pointer border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-slate-100 rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col"
+                    className={`w-[80%] hover:bg-slate-100 hover:scale-105 cursor-pointer border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-slate-100 rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col ${
+                      tpname.topicName == tpName ? 'bg-sky-400' : ''
+                    }`}
                     onClick={() => onSelect(tpname.topicName)}
                   >
                     {tpname?.topicName}
@@ -247,7 +252,11 @@ export const Collection = () => {
             Create
           </button>
 
-          <CustomModal isOpen={isOpenAddTopicModal} onRequestClose={() => setIsOpenAddTopicModal(false)}>
+          <CustomModal
+            classNameCustom="w-[500px]"
+            isOpen={isOpenAddTopicModal}
+            onRequestClose={() => setIsOpenAddTopicModal(false)}
+          >
             <AddTopicModal onCloseTopicModal={onCloseTopicModal} onCreate={onAddTopic} />
           </CustomModal>
         </div>
