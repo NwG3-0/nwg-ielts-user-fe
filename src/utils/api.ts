@@ -633,3 +633,52 @@ export const addResultSkill = async (input: {
     console.log(error)
   }
 }
+
+export const addSpeakingFile = async (input: {
+  result: string
+  topic: string
+  user_id: string
+  skill: string
+  accessToken: string
+}) => {
+  try {
+    const { result, topic, user_id, skill, accessToken } = input
+
+    if (!result) {
+      return { success: false, data: null, message: 'Invalid Result' }
+    }
+
+    if (!topic) {
+      return { success: false, data: null, message: 'Invalid Topic' }
+    }
+
+    if (!user_id) {
+      return { success: false, data: null, message: 'Invalid User Id' }
+    }
+
+    if (!skill) {
+      return { success: false, data: null, message: 'Invalid Skill' }
+    }
+
+    if (!accessToken) {
+      return { success: false, data: null, message: 'Invalid Access Token' }
+    }
+
+    const response = await fetch(`${API_BASE_URL}/api/result-skill/add`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: JSON.stringify({ result, topic, user_id, skill }),
+    })
+
+    const rawResponse = await response.json()
+
+    if (rawResponse) {
+      return rawResponse
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}
