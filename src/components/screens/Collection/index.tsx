@@ -80,22 +80,22 @@ export const Collection = () => {
     }
   }, [card])
 
-  const onCreate = async (event: { preventDefault: () => void }) => {
-    try {
-      event.preventDefault()
-      if (accessToken) {
-        const { success } = await createDeck({
-          topicName: refTopicName.current.value,
-          userId: userInfo?.id,
-          accessToken,
-        })
+  // const onCreate = async (event: { preventDefault: () => void }) => {
+  //   try {
+  //     event.preventDefault()
+  //     if (accessToken) {
+  //       const { success } = await createDeck({
+  //         topicName: refTopicName.current.value,
+  //         userId: userInfo?.id,
+  //         accessToken,
+  //       })
 
-        if (success) {
-          notify(NOTIFICATION_TYPE.SUCCESS, 'Delete success')
-        }
-      }
-    } catch (error) {}
-  }
+  //       if (success) {
+  //         notify(NOTIFICATION_TYPE.SUCCESS, 'Delete success')
+  //       }
+  //     }
+  //   } catch (error) {}
+  // }
 
   const onDelete = async (id: any) => {
     try {

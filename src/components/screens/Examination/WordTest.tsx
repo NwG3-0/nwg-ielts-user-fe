@@ -1,5 +1,4 @@
 import { SettingIcon } from '@components/common/CustomIcon'
-import { LoadingbtnAnimate } from '@components/common/LoadingButton/LoadingbtnAnimate'
 import { AUTH_TOKEN, USER_INFO } from '@src/models/api'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import {

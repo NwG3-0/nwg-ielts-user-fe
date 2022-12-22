@@ -1,15 +1,15 @@
 import { ListeningIcon, ReadingIcon, SpeakingIcon, WritingIcon } from '@components/common/CustomIcon'
 import Link from 'next/link'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 const HomePage = () => {
-  const [isCloudRun, setCloudRun] = useState<boolean>(false)
+  // const [isCloudRun, setCloudRun] = useState<boolean>(false)
 
-  useEffect(() => {
-    setTimeout(() => {
-      setCloudRun(true)
-    }, 1500)
-  }, [])
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setCloudRun(true)
+  //   }, 1500)
+  // }, [])
 
   return (
     <div className="w-full">
