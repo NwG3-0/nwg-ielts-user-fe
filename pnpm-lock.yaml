@@ -45,6 +45,7 @@ specifiers:
   tslib: ^2.4.1
   typescript: 4.8.4
   uuid: ^9.0.0
+  zustand: ^4.1.5
 
 dependencies:
   '@tanstack/react-query': 4.16.1_biqbaboplfbrettd7655fr4n2y
@@ -69,6 +70,7 @@ dependencies:
   stipop-react-sdk: 1.2.6-beta.1_biqbaboplfbrettd7655fr4n2y
   styled-components: 5.3.6_biqbaboplfbrettd7655fr4n2y
   uuid: 9.0.0
+  zustand: 4.1.5_react@18.2.0
 
 devDependencies:
   '@babel/runtime': 7.20.1
@@ -3634,3 +3636,19 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
     dev: true
+
+  /zustand/4.1.5_react@18.2.0:
+    resolution: {integrity: sha512-PsdRT8Bvq22Yyh1tvpgdHNE7OAeFKqJXUxtJvj1Ixw2B9O2YZ1M34ImQ+xyZah4wZrR4lENMoDUutKPpyXCQ/Q==}
+    engines: {node: '>=12.7.0'}
+    peerDependencies:
+      immer: '>=9.0'
+      react: '>=16.8'
+    peerDependenciesMeta:
+      immer:
+        optional: true
+      react:
+        optional: true
+    dependencies:
+      react: 18.2.0
+      use-sync-external-store: 1.2.0_react@18.2.0
+    dev: false

@@ -1,16 +1,16 @@
 import { BinIcon, RotateLeftIcon, SearchIcon } from '@components/common/CustomIcon'
 import { CustomModal } from '@components/common/CustomModal'
 import { AddTopicModal } from '@components/widgets/AddTopicModal'
-import { AUTH_TOKEN, USER_INFO } from '@src/models/api'
+import { useDataLoginInfoStore } from '@src/zustand'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { createDeck, deleteDeck, getCard, getDeckList } from '@utils/api'
-import { safeParseJSON } from '@utils/json'
 import { QUERY_KEYS } from '@utils/keys'
 import { NOTIFICATION_TYPE, notify } from '@utils/notify'
-import React, { useEffect, useMemo, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Slider from 'react-slick'
 
 export const Collection = () => {
+  const [userInfo, accessToken] = useDataLoginInfoStore((state: any) => [state.userInfo, state.accessToken])
   const queryClient = useQueryClient()
   const [limit] = useState<number>(5)
   const [page] = useState<number>(1)
@@ -19,19 +19,8 @@ export const Collection = () => {
   const [isOpenAddTopicModal, setIsOpenAddTopicModal] = useState<boolean>(false)
   const [level, setLevel] = useState<string[]>([])
   const [tpName, setTopicName] = useState<string>('')
-  const [showDeteil, setShowDetail] = useState<boolean>(false)
+  const [showDetail, setShowDetail] = useState<boolean>(false)
   const [_mean, setMean] = useState<any>([])
-
-  const userInfo: any = useMemo(() => {
-    if (typeof window !== 'undefined') {
-      return safeParseJSON(localStorage.getItem(USER_INFO) as string)
-    }
-  }, [])
-  const accessToken = useMemo(() => {
-    if (typeof window !== 'undefined') {
-      return localStorage.getItem(AUTH_TOKEN)
-    }
-  }, [])
 
   const { data: deck } = useQuery(
     [QUERY_KEYS.TOPIC_LIST],
@@ -67,8 +56,6 @@ export const Collection = () => {
       enabled: deck && deck.data !== null,
     },
   )
-
-  console.log(card)
 
   useEffect(() => {
     if (card) {
@@ -122,7 +109,7 @@ export const Collection = () => {
   }
 
   const onShowDetail = () => {
-    setShowDetail(!showDeteil)
+    setShowDetail(!showDetail)
   }
 
   const handleCheck = (e: { target: { checked: boolean; value: string } }) => {
@@ -164,7 +151,7 @@ export const Collection = () => {
               card?.data?.map((c: any, index: any, arr: any) => {
                 return (
                   <div key={index} className="w-full h-[460px] relative">
-                    {showDeteil ? (
+                    {showDetail ? (
                       <div>
                         <div className="text-[120px] text-center mt-[80px]">{c.word}</div>
                         <div className="text-center text-[32px]">{c.phonetic}</div>

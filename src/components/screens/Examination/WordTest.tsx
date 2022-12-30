@@ -1,5 +1,4 @@
 import { SettingIcon } from '@components/common/CustomIcon'
-import { AUTH_TOKEN, USER_INFO } from '@src/models/api'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import {
   addResultWordTest,
@@ -9,15 +8,16 @@ import {
   setUpRandomWord,
   UpdateSetUpRandomWord,
 } from '@utils/api'
-import { safeParseJSON } from '@utils/json'
 import { QUERY_KEYS } from '@utils/keys'
 import { NOTIFICATION_TYPE, notify } from '@utils/notify'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { FillWord } from './FillWord'
 import { KeyBoard } from './KeyBoard'
+import { useDataLoginInfoStore } from '@src/zustand'
 
 export const WordTest = () => {
   const queryClient = useQueryClient()
+  const [userInfo, accessToken] = useDataLoginInfoStore((state: any) => [state.userInfo, state.accessToken])
 
   const [wordToGuess, setWordToGuess] = useState<string>('')
   const [level, setLevel] = useState<string>('')
@@ -37,18 +37,6 @@ export const WordTest = () => {
   const [guessedLetters, setGuessedLetter] = useState<string[]>([])
   const [topicName, setTopicName] = useState<string>('')
   const [openSetupModal, setOpenSetupModal] = useState<boolean>(false)
-
-  const userInfo: any = useMemo(() => {
-    if (typeof window !== 'undefined') {
-      return safeParseJSON(localStorage.getItem(USER_INFO) as string)
-    }
-  }, [])
-
-  const accessToken = useMemo(() => {
-    if (typeof window !== 'undefined') {
-      return localStorage.getItem(AUTH_TOKEN)
-    }
-  }, [])
 
   const { data: checkUser } = useQuery(
     [QUERY_KEYS.USER_RANDOM_CHECK],

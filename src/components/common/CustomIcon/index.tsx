@@ -437,7 +437,7 @@ export const SpeakingIcon = ({ width, height }: IconType) => {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       id="Capa_1"
-      enable-background="new 0 0 512.059 512.059"
+      enableBackground="new 0 0 512.059 512.059"
       height={height}
       viewBox="0 0 512.059 512.059"
       width={width}
@@ -533,7 +533,7 @@ export const WritingIcon = ({ width, height }: IconType) => {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       id="Layer_5"
-      enable-background="new 0 0 64 64"
+      enableBackground="new 0 0 64 64"
       height={height}
       viewBox="0 0 64 64"
       width={width}
@@ -622,7 +622,7 @@ export const ListeningIcon = ({ width, height }: IconType) => {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       id="Capa_1"
-      enable-background="new 0 0 512 512"
+      enableBackground="new 0 0 512 512"
       height={width}
       viewBox="0 0 512 512"
       width={height}
@@ -729,7 +729,7 @@ export const ReadingIcon = ({ width, height }: IconType) => {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       id="Capa_1"
-      enable-background="new 0 0 504.519 504.519"
+      enableBackground="new 0 0 504.519 504.519"
       height={height}
       viewBox="0 0 504.519 504.519"
       width={width}
