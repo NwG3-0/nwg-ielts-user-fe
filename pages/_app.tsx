@@ -15,16 +15,21 @@ import { AUTH_TOKEN, USER_INFO } from '@src/models/api'
 import AOS from 'aos'
 import Head from 'next/head'
 import 'aos/dist/aos.css'
+import { useDataLoginInfoStore } from '@src/zustand'
+import { safeParseJSON } from '@utils/json'
 
 dayjs.extend(utc)
 
 function MyApp({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient()
   const [authToken, setAuthToken] = useState<any>({})
+  const [setUserInfo, setAccessToken] = useDataLoginInfoStore((state: any) => [state.setUserInfo, state.setAccessToken])
 
   useEffect(() => {
     if (isLogin() && typeof window !== 'undefined') {
       setAuthToken(jwtDecode(localStorage.getItem(AUTH_TOKEN) || ''))
+      setUserInfo(safeParseJSON(localStorage.getItem(USER_INFO) ?? '{}'))
+      setAccessToken(localStorage.getItem(AUTH_TOKEN) || '')
     }
   }, [])
 

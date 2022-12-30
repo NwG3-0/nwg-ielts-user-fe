@@ -1,5 +1,6 @@
 import InputPassword from '@components/common/InputPassword'
 import { AUTH_TOKEN, USER_INFO } from '@src/models/api'
+import { useDataLoginInfoStore } from '@src/zustand'
 import { login } from '@utils/api'
 import { NOTIFICATION_TYPE, notify } from '@utils/notify'
 import type { NextPage } from 'next'
@@ -8,6 +9,7 @@ import { useRouter } from 'next/router'
 import React, { useRef } from 'react'
 
 const LoginPage: NextPage = () => {
+  const [setUserInfo, setAccessToken] = useDataLoginInfoStore((state: any) => [state.setUserInfo, state.setAccessToken])
   const emailValue = useRef() as React.MutableRefObject<HTMLInputElement>
   const passwordValue = useRef() as React.MutableRefObject<HTMLInputElement>
   const router = useRouter()
@@ -24,6 +26,8 @@ const LoginPage: NextPage = () => {
         if (success) {
           localStorage.setItem(USER_INFO, JSON.stringify(data))
           localStorage.setItem(AUTH_TOKEN, data.token)
+          setUserInfo(data)
+          setAccessToken(data.token)
           notify(NOTIFICATION_TYPE.SUCCESS, 'Login success')
 
           router.push('/')

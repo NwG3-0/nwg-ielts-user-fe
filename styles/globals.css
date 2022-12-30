@@ -207,7 +207,7 @@ pointer-events :auto;
     100%{
    transform:translateY(600px);
 
-   
+
   }
 }
 
@@ -294,3 +294,11 @@ background-position:1293px;
   transition: 0.2s !important;
 }
 
+.train-run {
+  animation: go-round 20s linear infinite
+}
+
+@keyframes go-round {
+	from { 	transform: rotate(0deg) translateX(150px); }
+	to   {  transform: rotate(360deg) translateX(150px); }
+}

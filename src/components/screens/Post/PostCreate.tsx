@@ -1,8 +1,8 @@
 import { LoadingButton } from '@components/common/LoadingButton'
-import { AUTH_TOKEN } from '@src/models/api'
+import { useDataLoginInfoStore } from '@src/zustand'
 import { createPost } from '@utils/api'
 import { NOTIFICATION_TYPE, notify } from '@utils/notify'
-import { useMemo, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import ReactQuill from 'react-quill'
 
 export const PostCreate = () => {
@@ -12,12 +12,7 @@ export const PostCreate = () => {
   const [description, setDescription] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [_uploadData, setUploadData] = useState()
-
-  const accessToken = useMemo(() => {
-    if (typeof window !== 'undefined') {
-      return localStorage.getItem(AUTH_TOKEN)
-    }
-  }, [])
+  const [accessToken] = useDataLoginInfoStore((state: any) => state.accessToken)
 
   const onChangeFile = (changeEvent: any) => {
     const reader = new FileReader()
